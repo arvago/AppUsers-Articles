@@ -15,7 +15,7 @@ class User(
     var numArticles: Int? = null
 ): Parcelable {
     companion object {
-        val users = arrayOf(
+        val users = mutableListOf(
             User(1, "arvago", "ar123", R.drawable.arvago, UserLevel.EDITOR, 1),
             User(2, "yavago", "ya123", R.drawable.yavago, UserLevel.WATCHER, 1),
             User(3, "alraga", "al123", R.drawable.alraga, UserLevel.WATCHER, 1),
