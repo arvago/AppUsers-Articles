@@ -88,11 +88,18 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         Article.Articles.forEach{
             if(it.user == id){
                 articleUser.add(it)
+                ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
+                txvInfo.setText(articleUser[contadorCarousel].title)
+            }
+            if(articleUser.size == 0){
+                ivArticle.setImageResource(com.example.appusersarticles.R.drawable.noarticle)
+                txvInfo.setText("Este editor no tiene articulos")
+                btnNext.isVisible = false
+                btnBack.isVisible = false
+                btnVer.isVisible = false
             }
         }
 
-        ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-        txvInfo.setText(articleUser[contadorCarousel].title)
     }
 
     private fun lastImage(){

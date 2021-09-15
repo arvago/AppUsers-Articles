@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 
 
@@ -55,6 +52,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 loadArticle(idImage)
             }else{
                 ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+                btnDelete.isVisible = false
                 txvLikes.text = "0"
             }
         }else{
@@ -114,10 +112,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun deleteArticle(){
+        Article.Articles.removeIf{it.id == idImage}
+        user.numArticles = user.numArticles!! - 1
+        Toast.makeText(context, "Articulo Eliminado", Toast.LENGTH_SHORT).show()
+        (requireActivity() as MainActivity).replaceFragment(EditorWatcherFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("userLogin", user)
+            }
 
+        })
     }
 
     private fun updateArticle(){
-
+        user.numArticles = user.numArticles!! + 1
     }
 }

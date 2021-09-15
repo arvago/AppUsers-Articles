@@ -68,8 +68,8 @@
 
     <TextView
         android:id="@+id/txvInfo"
-        android:layout_width="176dp"
-        android:layout_height="27dp"
+        android:layout_width="265dp"
+        android:layout_height="25dp"
         android:layout_marginTop="210dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
