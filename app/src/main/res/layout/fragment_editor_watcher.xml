@@ -21,8 +21,10 @@
         android:id="@+id/ivArticle"
         android:layout_width="308dp"
         android:layout_height="255dp"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="272dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvInfo"
         tools:src="@tools:sample/avatars" />
 
     <TextView
