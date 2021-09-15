@@ -20,6 +20,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var user: User
     private var idImage = 0
+    private var arrayImages: MutableList<ArticleType> = mutableListOf()
     private lateinit var ivArticle: ImageView
     private lateinit var txvLikes: TextView
     private lateinit var edtTitulo: EditText
@@ -28,6 +29,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private lateinit var btnDelete: Button
     private lateinit var btnBack: Button
     private lateinit var btnNext: Button
+    var contadorCarousel = 0
 
     private fun setView(){
         user = requireArguments().getParcelable("userLogin") ?: User()
@@ -40,6 +42,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         btnDelete = requireView().findViewById(R.id.btnDelete)
         btnBack = requireView().findViewById(R.id.btnBack)
         btnNext = requireView().findViewById(R.id.btnNext)
+        arrayImages.addAll(ArticleType.values())
 
         if(user.type == UserLevel.EDITOR){
             btnBack.isVisible = true
@@ -51,7 +54,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             if(idImage != 0){
                 loadArticle(idImage)
             }else{
-
+                ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+                txvLikes.text = "0"
             }
         }else{
             btnBack.isVisible = false
@@ -62,6 +66,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             edtTitulo.isEnabled = false
             loadArticle(idImage)
         }
+
+        btnBack.setOnClickListener{
+            lastImage()
+        }
+        btnNext.setOnClickListener{
+            nextImage()
+        }
+        btnDelete.setOnClickListener{
+            deleteArticle()
+        }
+        btnUpdate.setOnClickListener{
+            updateArticle()
+        }
     }
 
     private fun loadArticle(idImage: Int){
@@ -71,7 +88,36 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 edtTitulo.setText(it.title)
                 edtDescripcion.setText(it.description)
                 ivArticle.setImageResource(it.picture!!.image)
+                contadorCarousel = it.picture!!.id - 1
             }
         }
+    }
+
+    private fun lastImage(){
+        contadorCarousel--
+        if(contadorCarousel >= 0){
+            ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+        }else{
+            contadorCarousel = arrayImages.size - 1
+            ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+        }
+    }
+
+    private fun nextImage(){
+        contadorCarousel++
+        if(contadorCarousel < arrayImages.size){
+            ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+        }else{
+            contadorCarousel = 0
+            ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+        }
+    }
+
+    private fun deleteArticle(){
+
+    }
+
+    private fun updateArticle(){
+
     }
 }

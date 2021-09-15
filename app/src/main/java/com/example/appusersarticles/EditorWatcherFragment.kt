@@ -31,6 +31,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     private lateinit var btnLike: ImageView
     private lateinit var btnAdd: Button
     private var articleUser: MutableList<Article> = mutableListOf()
+    private var favFlag: Boolean = false
     var contadorCarousel = 0
 
     private fun setView(){
@@ -46,21 +47,23 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         btnLike = requireView().findViewById(R.id.btnLike)
         btnAdd = requireView().findViewById(R.id.btnAdd)
 
+
         user = requireArguments().getParcelable("userLogin") ?: User()
         ivUser.setImageResource(user.picture!!)
         txvName.setText("Usuario: " + user.username)
         txvUserType.setText("Nivel: " + user.type.toString())
-        txvArticles.setText("Mis Articulos:" + user.numArticles.toString())
 
         if(user.type == UserLevel.EDITOR){
             btnAdd.isVisible = true
             btnLike.isVisible = false
+            txvArticles.setText("Articulos Escritos: " + user.numArticles.toString())
             loadArticles(user.id!!)
         }else{
             btnAdd.isVisible = false
             btnLike.isVisible = true
             articleUser = Article.Articles
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
+            txvArticles.setText("Mis Articulos Favs: " + user.favArticles.toString())
             txvInfo.setText(articleUser[contadorCarousel].title)
         }
 
@@ -71,7 +74,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             nextImage()
         }
         btnVer.setOnClickListener{
-            watchArticle()
+            watchArticle(contadorCarousel)
         }
         btnLike.setOnClickListener{
             getLike()
@@ -116,7 +119,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         }
     }
 
-    private fun watchArticle(){
+    private fun watchArticle(contadorCarousel: Int){
         (requireActivity() as MainActivity).replaceFragment(DetailFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
