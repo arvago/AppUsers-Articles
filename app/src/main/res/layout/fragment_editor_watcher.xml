@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditorWatcherFragment">
+
+
+    <ImageView
+        android:id="@+id/ivUser"
+        android:layout_width="150dp"
+        android:layout_height="162dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ivArticle"
+        android:layout_width="308dp"
+        android:layout_height="255dp"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="272dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txvUserType"
+        android:layout_width="176dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toBottomOf="@+id/txvName" />
+
+    <TextView
+        android:id="@+id/txvName"
+        android:layout_width="176dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toTopOf="@+id/ivUser" />
+
+    <TextView
+        android:id="@+id/txvArticles"
+        android:layout_width="176dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginBottom="19dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/ivUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        app:layout_constraintTop_toTopOf="@+id/txvUserType"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txvInfo"
+        android:layout_width="176dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="210dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivUser" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="33dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="104dp"
+        android:background="@drawable/flecha_izq"
+        app:layout_constraintBottom_toBottomOf="@+id/ivArticle"
+        app:layout_constraintEnd_toStartOf="@+id/ivArticle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivArticle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/btnVer"
+        android:layout_width="72dp"
+        android:layout_height="53dp"
+        android:background="@drawable/ver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivArticle" />
+
+    <ImageView
+        android:id="@+id/btnLike"
+        android:layout_width="72dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/corazon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVer" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="33dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginBottom="101dp"
+        android:background="@drawable/flecha_der"
+        app:layout_constraintBottom_toBottomOf="@+id/ivArticle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivArticle"
+        app:layout_constraintTop_toTopOf="@+id/ivArticle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Add New Article"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLike"
+        app:layout_constraintVertical_bias="0.448" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
