@@ -30,7 +30,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     private lateinit var btnVer: ImageView
     private lateinit var btnLike: ImageView
     private lateinit var btnAdd: Button
-    private lateinit var articleUser: MutableList<Article>
+    private var articleUser: MutableList<Article> = mutableListOf()
     var contadorCarousel = 0
 
     private fun setView(){
@@ -70,6 +70,15 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         btnNext.setOnClickListener{
             nextImage()
         }
+        btnVer.setOnClickListener{
+            watchArticle()
+        }
+        btnLike.setOnClickListener{
+            getLike()
+        }
+        btnAdd.setOnClickListener{
+            addArticle()
+        }
     }
 
     private fun loadArticles(id: Int){
@@ -105,5 +114,32 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
             txvInfo.setText(articleUser[contadorCarousel].title)
         }
+    }
+
+    private fun watchArticle(){
+        (requireActivity() as MainActivity).replaceFragment(DetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("userLogin", user)
+                putInt("idArticle", articleUser[contadorCarousel].id!!)
+            }
+        })
+    }
+
+    private fun getLike(){
+        btnLike.setImageResource(R.drawable.corazon_relleno)
+        articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! + 1
+        Article.Articles.forEach{
+            when(it.id){
+                articleUser[contadorCarousel].id -> it.likes = articleUser[contadorCarousel].likes
+            }
+        }
+    }
+
+    private fun addArticle(){
+        (requireActivity() as MainActivity).replaceFragment(DetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("userLogin", user)
+            }
+        })
     }
 }
