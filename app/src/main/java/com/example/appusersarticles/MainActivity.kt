@@ -12,7 +12,26 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container, LogInFragment()).commit()
     }
 
+    private lateinit var backFragment: Fragment
+
     fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right)
+            replace(R.id.container, fragment)
+            addToBackStack(fragment.tag)
+            commit()
+        }
+
+        backFragment = fragment
+    }
+
+    fun replaceRemoveFragment(fragment: Fragment){
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in_right,

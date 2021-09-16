@@ -115,11 +115,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         Article.Articles.removeIf{it.id == idImage}
         user.numArticles = user.numArticles!! - 1
         Toast.makeText(context, "Articulo Eliminado", Toast.LENGTH_SHORT).show()
-        (requireActivity() as MainActivity).replaceFragment(EditorWatcherFragment().apply {
+        (requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
             }
-
         })
     }
 
