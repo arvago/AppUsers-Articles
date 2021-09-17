@@ -30,6 +30,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     private lateinit var btnVer: ImageView
     private lateinit var btnLike: ImageView
     private lateinit var btnAdd: Button
+    private var likesArray : MutableList<Article> = mutableListOf()
     private var articleUser: MutableList<Article> = mutableListOf()
     private var favFlag: Boolean = false
     var contadorCarousel = 0
@@ -63,8 +64,9 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             btnLike.isVisible = true
             articleUser = Article.Articles
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvArticles.setText("Mis Articulos Favs: " + user.favArticles.toString())
+            txvArticles.setText("Mis Articulos Favs: " + user.favArticles.size.toString())
             txvInfo.setText(articleUser[contadorCarousel].title)
+            validateLikes()
         }
 
         btnBack.setOnClickListener{
@@ -81,6 +83,16 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         }
         btnAdd.setOnClickListener{
             addArticle()
+        }
+    }
+
+    private fun validateLikes(){
+        if(user.favArticles.contains(articleUser[contadorCarousel])) {
+            btnLike.setImageResource(R.drawable.corazon_relleno)
+            favFlag = true
+        }else{
+            favFlag = false
+            btnLike.setImageResource(R.drawable.corazon)
         }
     }
 
@@ -107,10 +119,12 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         if(contadorCarousel >= 0){
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
             txvInfo.setText(articleUser[contadorCarousel].title)
+            validateLikes()
         }else{
             contadorCarousel = articleUser.size - 1
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
             txvInfo.setText(articleUser[contadorCarousel].title)
+            validateLikes()
         }
     }
 
@@ -119,10 +133,12 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         if(contadorCarousel < articleUser.size){
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
             txvInfo.setText(articleUser[contadorCarousel].title)
+            validateLikes()
         }else{
             contadorCarousel = 0
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
             txvInfo.setText(articleUser[contadorCarousel].title)
+            validateLikes()
         }
     }
 
@@ -136,12 +152,18 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     }
 
     private fun getLike(){
-        btnLike.setImageResource(R.drawable.corazon_relleno)
-        articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! + 1
-        Article.Articles.forEach{
-            when(it.id){
-                articleUser[contadorCarousel].id -> it.likes = articleUser[contadorCarousel].likes
-            }
+        if(user.favArticles.contains(articleUser[contadorCarousel])){
+            btnLike.setImageResource(R.drawable.corazon)
+            favFlag = false
+            articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! - 1
+            user.favArticles.remove(articleUser[contadorCarousel])
+            Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
+        }else{
+            btnLike.setImageResource(R.drawable.corazon_relleno)
+            favFlag = true
+            articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! + 1
+            user.favArticles.add(articleUser[contadorCarousel])
+            Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
         }
     }
 
