@@ -57,15 +57,15 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         if(user.type == UserLevel.EDITOR){
             btnAdd.isVisible = true
             btnLike.isVisible = false
-            txvArticles.setText("Articulos Escritos: " + user.numArticles.toString())
+            txvArticles.text = "Articulos Escritos: " + user.numArticles.toString()
             loadArticles(user.id!!)
         }else{
             btnAdd.isVisible = false
             btnLike.isVisible = true
             articleUser = Article.Articles
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvArticles.setText("Mis Articulos Favs: " + user.favArticles.size.toString())
-            txvInfo.setText(articleUser[contadorCarousel].title)
+            txvArticles.text = "Mis Articulos Favs: " + user.favArticles.size.toString()
+            txvInfo.text = articleUser[contadorCarousel].title
             validateLikes()
         }
 
@@ -103,15 +103,14 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
                 ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
                 txvInfo.setText(articleUser[contadorCarousel].title)
             }
-            if(articleUser.size == 0){
-                ivArticle.setImageResource(com.example.appusersarticles.R.drawable.noarticle)
-                txvInfo.setText("Este editor no tiene articulos")
-                btnNext.isVisible = false
-                btnBack.isVisible = false
-                btnVer.isVisible = false
-            }
         }
-
+        if(articleUser.size == 0){
+            ivArticle.setImageResource(com.example.appusersarticles.R.drawable.noarticle)
+            txvInfo.setText("Este editor no tiene articulos")
+            btnNext.isVisible = false
+            btnBack.isVisible = false
+            btnVer.isVisible = false
+        }
     }
 
     private fun lastImage(){
