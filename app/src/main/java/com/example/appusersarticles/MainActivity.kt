@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 User.users.add(it)
             }
         }
+
         if(getArticleChanges().size > 0){
             Article.Articles.clear()
             getArticleChanges().forEach{
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUserChanges(): MutableList<User>{
-        val type = Types.newParameterizedType(MutableList::class.java, String::class.java)
+        val type = Types.newParameterizedType(MutableList::class.java, User::class.java)
         val adapterU = moshi.adapter<MutableList<User>>(type)
 
         return preferencesUser.getString(USER_PREFS, null)?.let {
@@ -56,10 +57,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getArticleChanges(): MutableList<Article>{
-        val type = Types.newParameterizedType(MutableList::class.java, String::class.java)
+        val type = Types.newParameterizedType(MutableList::class.java, Article::class.java)
         val adapterA = moshi.adapter<MutableList<Article>>(type)
 
-        return preferencesUser.getString(USER_PREFS, null)?.let {
+        return preferencesArticle.getString(ARTICLE_PREFS, null)?.let {
             return@let try {
                 adapterA.fromJson(it)
             } catch (e: Exception) {
