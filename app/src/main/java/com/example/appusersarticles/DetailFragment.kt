@@ -126,7 +126,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun updateNewArticle(){
         if(addFlag){
-            lateinit var newArticle: Article
+            var newArticle: Article = Article()
             var newID = Article.Articles.last().id!! + 1
             newArticle.id = newID
             newArticle.title = edtTitulo.text.toString()
@@ -147,10 +147,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
             Toast.makeText(context, "Articulo Actualizado", Toast.LENGTH_SHORT).show()
         }
-        /*(requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
+        (requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
             }
-        })*/
+        })
     }
 }
