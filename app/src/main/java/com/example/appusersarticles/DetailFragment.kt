@@ -17,6 +17,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var user: User
     private var idImage = 0
+    private var addFlag = false
     private var arrayImages: MutableList<ArticleType> = mutableListOf()
     private lateinit var ivArticle: ImageView
     private lateinit var txvLikes: TextView
@@ -31,6 +32,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun setView(){
         user = requireArguments().getParcelable("userLogin") ?: User()
         idImage = requireArguments().getInt("idArticle")
+        addFlag = requireArguments().getBoolean("addNew")
         ivArticle = requireView().findViewById(R.id.ivArticle)
         txvLikes = requireView().findViewById(R.id.txvLikes)
         edtTitulo = requireView().findViewById(R.id.edtTitulo)
@@ -75,7 +77,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             deleteArticle()
         }
         btnUpdate.setOnClickListener{
-            updateArticle()
+            updateNewArticle()
         }
     }
 
@@ -122,7 +124,33 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         })
     }
 
-    private fun updateArticle(){
-        user.numArticles = user.numArticles!! + 1
+    private fun updateNewArticle(){
+        if(addFlag){
+            lateinit var newArticle: Article
+            var newID = Article.Articles.last().id!! + 1
+            newArticle.id = newID
+            newArticle.title = edtTitulo.text.toString()
+            newArticle.description = edtDescripcion.text.toString()
+            newArticle.picture = arrayImages[contadorCarousel]
+            newArticle.likes = 0
+            newArticle.user = user.id
+            Article.Articles.add(newArticle)
+            user.numArticles = user.numArticles!! + 1
+            Toast.makeText(context, "Articulo Agregado", Toast.LENGTH_SHORT).show()
+        }else {
+            Article.Articles.forEach {
+                if (it.id == idImage) {
+                    it.title = edtTitulo.text.toString()
+                    it.description = edtDescripcion.text.toString()
+                    it.picture = arrayImages[contadorCarousel]
+                }
+            }
+            Toast.makeText(context, "Articulo Actualizado", Toast.LENGTH_SHORT).show()
+        }
+        /*(requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("userLogin", user)
+            }
+        })*/
     }
 }

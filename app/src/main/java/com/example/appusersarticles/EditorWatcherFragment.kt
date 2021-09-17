@@ -149,6 +149,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         (requireActivity() as MainActivity).replaceFragment(DetailFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
+                putBoolean("addNew", true)
             }
         })
     }
