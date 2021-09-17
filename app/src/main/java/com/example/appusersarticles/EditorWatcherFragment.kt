@@ -26,7 +26,6 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     private lateinit var btnVer: ImageView
     private lateinit var btnLike: ImageView
     private lateinit var btnAdd: Button
-    private var likesArray : MutableList<Article> = mutableListOf()
     private var articleUser: MutableList<Article> = mutableListOf()
     private var favFlag: Boolean = false
     var contadorCarousel = 0
@@ -97,12 +96,12 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             if(it.user == id){
                 articleUser.add(it)
                 ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-                txvInfo.setText(articleUser[contadorCarousel].title)
+                txvInfo.text = articleUser[contadorCarousel].title
             }
         }
         if(articleUser.size == 0){
-            ivArticle.setImageResource(com.example.appusersarticles.R.drawable.noarticle)
-            txvInfo.setText("Este editor no tiene articulos")
+            ivArticle.setImageResource(R.drawable.noarticle)
+            txvInfo.text = "Este editor no tiene articulos"
             btnNext.isVisible = false
             btnBack.isVisible = false
             btnVer.isVisible = false
@@ -113,12 +112,12 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         contadorCarousel--
         if(contadorCarousel >= 0){
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvInfo.setText(articleUser[contadorCarousel].title)
+            txvInfo.text = articleUser[contadorCarousel].title
             validateLikes()
         }else{
             contadorCarousel = articleUser.size - 1
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvInfo.setText(articleUser[contadorCarousel].title)
+            txvInfo.text = articleUser[contadorCarousel].title
             validateLikes()
         }
     }
@@ -127,12 +126,12 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         contadorCarousel++
         if(contadorCarousel < articleUser.size){
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvInfo.setText(articleUser[contadorCarousel].title)
+            txvInfo.text = articleUser[contadorCarousel].title
             validateLikes()
         }else{
             contadorCarousel = 0
             ivArticle.setImageResource(articleUser[contadorCarousel].picture!!.image)
-            txvInfo.setText(articleUser[contadorCarousel].title)
+            txvInfo.text = articleUser[contadorCarousel].title
             validateLikes()
         }
     }

@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
             return@let try {
                 adapterU.fromJson(it)
             } catch (e: Exception) {
-                mutableListOf<User>()
+                mutableListOf()
             }
-        } ?: mutableListOf<User>()
+        } ?: mutableListOf()
     }
 
     private fun getArticleChanges(): MutableList<Article>{
@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity() {
             return@let try {
                 adapterA.fromJson(it)
             } catch (e: Exception) {
-                mutableListOf<Article>()
+                mutableListOf()
             }
-        } ?: mutableListOf<Article>()
+        } ?: mutableListOf()
     }
 
     fun replaceFragment(fragment: Fragment){
