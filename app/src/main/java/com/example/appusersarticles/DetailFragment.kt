@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
-
+import com.squareup.moshi.Types
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onResume() {
@@ -117,6 +117,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         Article.Articles.removeIf{it.id == idImage}
         user.numArticles = user.numArticles!! - 1
         Toast.makeText(context, "Articulo Eliminado", Toast.LENGTH_SHORT).show()
+        saveChanges()
         (requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
@@ -147,10 +148,22 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
             Toast.makeText(context, "Articulo Actualizado", Toast.LENGTH_SHORT).show()
         }
+        saveChanges()
         (requireActivity() as MainActivity).replaceRemoveFragment(EditorWatcherFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("userLogin", user)
             }
         })
+    }
+
+    private fun saveChanges(){
+        val typeU = Types.newParameterizedType(MutableList::class.java, User::class.java)
+        val typeA = Types.newParameterizedType(MutableList::class.java, Article::class.java)
+        val adapterU = (requireActivity() as MainActivity).moshi.adapter<MutableList<User>>(typeU)
+        val adapterA = (requireActivity() as MainActivity).moshi.adapter<MutableList<Article>>(typeA)
+
+        User.users.find{it.id == user.id}?.numArticles = user.numArticles
+        (requireActivity() as MainActivity).preferencesUser.edit().putString((requireActivity() as MainActivity).USER_PREFS,adapterU.toJson(User.users)).commit()
+        (requireActivity() as MainActivity).preferencesArticle.edit().putString((requireActivity() as MainActivity).ARTICLE_PREFS,adapterA.toJson(Article.Articles)).commit()
     }
 }

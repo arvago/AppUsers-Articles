@@ -22,7 +22,7 @@ class User(
             User(3, "alraga", "al123", R.drawable.alraga, UserLevel.WATCHER, 0, ),
             User(4, "memo8a", "me123", R.drawable.memo8a, UserLevel.EDITOR, 1, ),
             User(5, "shaklo", "sh123", R.drawable.shaklo, UserLevel.EDITOR, 1, ),
-            User(6, "bebabu", "be123", R.drawable.bebabu, UserLevel.WATCHER, 0, )
+            User(6, "estere", "es123", R.drawable.bebabu, UserLevel.WATCHER, 0, )
         )
     }
 }

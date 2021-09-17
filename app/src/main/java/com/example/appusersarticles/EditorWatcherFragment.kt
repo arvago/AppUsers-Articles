@@ -1,16 +1,12 @@
 package com.example.appusersarticles
 
-import android.media.Image
 import android.os.Bundle
-import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.squareup.moshi.Types
 
 class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     override fun onResume() {
@@ -51,8 +47,8 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
 
         user = requireArguments().getParcelable("userLogin") ?: User()
         ivUser.setImageResource(user.picture!!)
-        txvName.setText("Usuario: " + user.username)
-        txvUserType.setText("Nivel: " + user.type.toString())
+        txvName.text = "Usuario: " + user.username
+        txvUserType.text = "Nivel: " + user.type.toString()
 
         if(user.type == UserLevel.EDITOR){
             btnAdd.isVisible = true
@@ -157,12 +153,14 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! - 1
             user.favArticles.remove(articleUser[contadorCarousel])
             Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
+            saveChanges()
         }else{
             btnLike.setImageResource(R.drawable.corazon_relleno)
             favFlag = true
             articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! + 1
             user.favArticles.add(articleUser[contadorCarousel])
             Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
+            saveChanges()
         }
     }
 
@@ -173,5 +171,16 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
                 putBoolean("addNew", true)
             }
         })
+    }
+
+    private fun saveChanges(){
+        val typeU = Types.newParameterizedType(MutableList::class.java, User::class.java)
+        val typeA = Types.newParameterizedType(MutableList::class.java, Article::class.java)
+        val adapterU = (requireActivity() as MainActivity).moshi.adapter<MutableList<User>>(typeU)
+        val adapterA = (requireActivity() as MainActivity).moshi.adapter<MutableList<Article>>(typeA)
+
+        User.users.find{it.id == user.id}?.favArticles = user.favArticles
+        (requireActivity() as MainActivity).preferencesUser.edit().putString((requireActivity() as MainActivity).USER_PREFS,adapterU.toJson(User.users)).commit()
+        (requireActivity() as MainActivity).preferencesArticle.edit().putString((requireActivity() as MainActivity).ARTICLE_PREFS,adapterA.toJson(Article.Articles)).commit()
     }
 }
