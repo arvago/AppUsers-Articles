@@ -146,11 +146,11 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     }
 
     private fun getLike(){
-        if(user.favArticles.contains(articleUser[contadorCarousel])){
+        if(user.favArticles.any { it.id == articleUser[contadorCarousel].id }){
             btnLike.setImageResource(R.drawable.corazon)
             favFlag = false
             articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! - 1
-            user.favArticles.remove(articleUser[contadorCarousel])
+            user.favArticles.removeIf{it.id == articleUser[contadorCarousel].id}
             Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
             saveChanges()
         }else{
