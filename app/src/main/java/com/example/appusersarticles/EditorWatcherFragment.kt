@@ -82,7 +82,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
     }
 
     private fun validateLikes(){
-        if(user.favArticles.contains(articleUser[contadorCarousel])) {
+        if(user.favArticles.any { it.id == articleUser[contadorCarousel].id }) {
             btnLike.setImageResource(R.drawable.corazon_relleno)
             favFlag = true
         }else{
