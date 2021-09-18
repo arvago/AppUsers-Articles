@@ -18,6 +18,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var arrayImages: MutableList<ArticleType> = mutableListOf()
     private lateinit var ivArticle: ImageView
     private lateinit var txvLikes: TextView
+    private lateinit var txvType: TextView
     private lateinit var edtTitulo: EditText
     private lateinit var edtDescripcion: EditText
     private lateinit var btnUpdate: Button
@@ -32,6 +33,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         addFlag = requireArguments().getBoolean("addNew")
         ivArticle = requireView().findViewById(R.id.ivArticle)
         txvLikes = requireView().findViewById(R.id.txvLikes)
+        txvType = requireView().findViewById(R.id.txvType)
         edtTitulo = requireView().findViewById(R.id.edtTitulo)
         edtDescripcion = requireView().findViewById(R.id.edtDescripcion)
         btnUpdate = requireView().findViewById(R.id.btnUpdate)
@@ -51,6 +53,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 loadArticle(idImage)
             }else{
                 ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+                txvType.text = arrayImages[contadorCarousel].text.toString()
                 btnDelete.isVisible = false
                 txvLikes.text = "0"
             }
@@ -85,6 +88,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 edtTitulo.setText(it.title)
                 edtDescripcion.setText(it.description)
                 ivArticle.setImageResource(it.picture!!.image)
+                txvType.text = it.picture!!.text
                 contadorCarousel = it.picture!!.id - 1
             }
         }
@@ -94,9 +98,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         contadorCarousel--
         if(contadorCarousel >= 0){
             ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+            txvType.text = arrayImages[contadorCarousel].text
         }else{
             contadorCarousel = arrayImages.size - 1
             ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+            txvType.text = arrayImages[contadorCarousel].text
         }
     }
 
@@ -104,9 +110,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         contadorCarousel++
         if(contadorCarousel < arrayImages.size){
             ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+            txvType.text = arrayImages[contadorCarousel].text
         }else{
             contadorCarousel = 0
             ivArticle.setImageResource(arrayImages[contadorCarousel].image)
+            txvType.text = arrayImages[contadorCarousel].text
         }
     }
 

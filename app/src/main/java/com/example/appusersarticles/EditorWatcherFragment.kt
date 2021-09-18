@@ -151,6 +151,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             favFlag = false
             articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! - 1
             user.favArticles.removeIf{it.id == articleUser[contadorCarousel].id}
+            txvArticles.text = "Mis Articulos Favs: " + user.favArticles.size.toString()
             Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
             saveChanges()
         }else{
@@ -158,6 +159,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
             favFlag = true
             articleUser[contadorCarousel].likes = articleUser[contadorCarousel].likes!! + 1
             user.favArticles.add(articleUser[contadorCarousel])
+            txvArticles.text = "Mis Articulos Favs: " + user.favArticles.size.toString()
             Article.Articles.find{it.id == articleUser[contadorCarousel].id }?.likes = articleUser[contadorCarousel].likes
             saveChanges()
         }

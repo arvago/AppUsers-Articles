@@ -11,10 +11,10 @@
         android:id="@+id/ivArticle"
         android:layout_width="177dp"
         android:layout_height="158dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/txvType"
         tools:src="@tools:sample/avatars" />
 
     <Button
@@ -71,6 +71,17 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txvType"
+        android:layout_width="154dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/edtTitulo"
