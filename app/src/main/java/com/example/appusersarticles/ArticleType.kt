@@ -7,3 +7,7 @@ enum class ArticleType(val id: Int, val image: Int, val text: String){
     ENTRETENIMIENTO(4, R.drawable.entretenimiento, "Entretenimiento"),
     POLITICA(5, R.drawable.politica, "Politica")
 }
+
+/*------------------------*/
+/*--By Arturo Vallejo v1--*/
+/*------------------------*/

@@ -185,3 +185,7 @@ class EditorWatcherFragment : Fragment(R.layout.fragment_editor_watcher) {
         (requireActivity() as MainActivity).preferencesArticle.edit().putString((requireActivity() as MainActivity).ARTICLE_PREFS,adapterA.toJson(Article.Articles)).commit()
     }
 }
+
+/*------------------------*/
+/*--By Arturo Vallejo v1--*/
+/*------------------------*/

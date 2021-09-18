@@ -84,3 +84,7 @@ class LogInFragment : Fragment(R.layout.fragment_log_in) {
         }
     }
 }
+
+/*------------------------*/
+/*--By Arturo Vallejo v1--*/
+/*------------------------*/

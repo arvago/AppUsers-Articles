@@ -172,3 +172,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         (requireActivity() as MainActivity).preferencesArticle.edit().putString((requireActivity() as MainActivity).ARTICLE_PREFS,adapterA.toJson(Article.Articles)).commit()
     }
 }
+
+/*------------------------*/
+/*--By Arturo Vallejo v1--*/
+/*------------------------*/
